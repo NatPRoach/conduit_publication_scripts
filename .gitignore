@@ -1,0 +1,16 @@
+# Ignore everything
+*
+
+# But look in directories
+!*/
+
+# Whitelist gitignore, scripts, and figures
+!.gitmodules
+!.gitignore
+!**.sh
+!**.md
+!**.R
+!figure_generation/figure_data/Precision_v_read_count.csv
+!figure_generation/figure_data/BenchmarkingMetasheet.xlsx
+!figure_generation/figure_data/novel_stats.xlsx
+!LICENSE
