@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Declare relevant constants for benchmarking
-THREADS=20
+THREADS="20"
 
 
 # # Install requisite tools
@@ -44,13 +44,13 @@ pushd scripts/ || exit
         mkdir "${DIR1}"
     done
     popd || exit
-    ./run_CONDUIT.sh ${THREADS}
-    ./run_SPAdes.sh ${THREADS}
-    ./run_TALC.sh ${THREADS}
-    ./run_Trinity.sh ${THREADS}
-    ./run_Stringtie2.sh ${THREADS}
+    ./run_CONDUIT.sh "${THREADS}"
+    ./run_SPAdes.sh "${THREADS}"
+    ./run_TALC.sh "${THREADS}"
+    ./run_Trinity.sh "${THREADS}"
+    ./run_Stringtie2.sh "${THREADS}"
     ./run_conduitUtils.sh
-    ./run_NanoComp.sh ${THREADS}
+    ./run_NanoComp.sh "${THREADS}"
 popd || exit
 
 pushd figure_generation || exit

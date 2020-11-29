@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SAMPLE="cel_L2"
+
 fastq-dump --split-files SRR8882159
 fastq-dump --split-files SRR8882160
 fastq-dump --split-files SRR8882161
@@ -19,11 +21,11 @@ wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245467/L2_rep2.fastq.gz
 gunzip L2_rep1.fastq.gz
 gunzip L2_rep2.fastq.gz
 
-cat L2_rep1.fastq L2_rep2.fastq > L2_nano.fastq
+cat L2_rep1.fastq L2_rep2.fastq > ${SAMPLE}_nano.fastq
 rm L2_rep1.fastq
 rm L2_rep2.fastq
 
-sed 's/U/T/g' L2_nano.fastq > L2_nano.UtoT.fastq
-rm L2_nano.fastq
-awk 'BEGIN{OFS="\n"} /^@/ {getline s; getline a; getline q; if (length(s) >= 150) {print $0,s,a,q}}' L2_nano.UtoT.fastq > L2_nano.UtoT.filtered.fastq
-rm L2_nano.UtoT.fastq
+sed 's/U/T/g' ${SAMPLE}_nano.fastq > ${SAMPLE}_nano.UtoT.fastq
+rm ${SAMPLE}_nano.fastq
+awk 'BEGIN{OFS="\n"} /^@/ {getline s; getline a; getline q; if (length(s) >= 150) {print $0,s,a,q}}' ${SAMPLE}_nano.UtoT.fastq > ${SAMPLE}_nano.UtoT.filtered.fastq
+rm ${SAMPLE}_nano.UtoT.fastq

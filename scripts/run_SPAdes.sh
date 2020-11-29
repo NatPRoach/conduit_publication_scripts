@@ -17,17 +17,36 @@ do
     SRFQ1="../../data/${SAMPLE}/${SAMPLE}_1.fastq"
     SRFQ2="../../data/${SAMPLE}/${SAMPLE}_2.fastq"
 
-    gunzip --keep ${SRFQGZ1}
-    gunzip --keep ${SRFQGZ2}
+    gunzip --keep "${SRFQGZ1}"
+    gunzip --keep "${SRFQGZ2}"
 
     echo "SPAdes:" > "${LOG}"
     { time ../../../SPAdes-3.14.1-Linux/bin/rnaspades.py \
-        -t ${THREADS} \
-        --nanopore ${LTREADS} \
-        -1 ${SRFQ1} \
-        -2 ${SRFQ2} \
-        -o ../../analysis/SPAdes/${SAMPLE}/ 2>&1 ; } 2>> "${LOG}"
+        -t "${THREADS}" \
+        --nanopore "${LTREADS}" \
+        -1 "${SRFQ1}" \
+        -2 "${SRFQ2}" \
+        -o "../../analysis/SPAdes/${SAMPLE}/" 2>&1 ; } 2>> "${LOG}"
 done
+
+SAMPLE_LIST=( cel_male )
+for SAMPLE in "${SAMPLE_LIST[@]}";
+do 
+    LOG="logs/${SAMPLE}/spades_log.txt"
+    LTREADS="../../data/${SAMPLE}/${SAMPLE}_nano.UtoT.filtered.fastq"
+    SRFQGZ="../../data/${SAMPLE}/${SAMPLE}.fastq.gz"
+    SRFQ="../../data/${SAMPLE}/${SAMPLE}.fastq"
+
+    gunzip --keep ${SRFQGZ}
+
+    echo "SPAdes:" > "${LOG}"
+    { time ../../../SPAdes-3.14.1-Linux/bin/rnaspades.py \
+        -t "${THREADS}" \
+        --nanopore "${LTREADS}" \
+        -s "${SRFQ}" \
+        -o "../../analysis/SPAdes/${SAMPLE}/" 2>&1 ; } 2>> "${LOG}"
+done
+
 
 conda deactivate
 
